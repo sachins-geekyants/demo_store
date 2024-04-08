@@ -1,14 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:zinc_flutter_assignment/model/product.dart';
+import 'package:zinc_flutter_assignment/view/screens/product_details.dart';
 
 class ProductCard extends StatelessWidget {
-  final Product store;
-  const ProductCard({super.key, required this.store});
+  final Product product;
+  const ProductCard({super.key, required this.product});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => ProductDetails(product: product)),
+        );
+      },
       child: Container(
         width: 119,
         height: 140,
@@ -22,9 +29,9 @@ class ProductCard extends StatelessWidget {
           children: [
             SizedBox(
                 height: 65,
-                child: store.image != null
+                child: product.image != null
                     ? Image.network(
-                        store.image!,
+                        product.image!,
                         width: 65,
                         errorBuilder: (context, url, error) =>
                             Image.asset('assets/images/organic_category.png'),
@@ -32,7 +39,7 @@ class ProductCard extends StatelessWidget {
                     : const SizedBox.shrink()),
             const SizedBox(height: 1),
             Text(
-              store.title ?? '',
+              product.title ?? '',
               maxLines: 1,
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
@@ -48,11 +55,11 @@ class ProductCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                store.price != null
+                product.price != null
                     ? SizedBox(
                         width: 100,
                         child: Text(
-                          '₹${store.price.toString()}',
+                          '₹${product.price.toString()}',
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
@@ -63,12 +70,12 @@ class ProductCard extends StatelessWidget {
                         ),
                       )
                     : const SizedBox.shrink(),
-                store.rating?['rate'] != null
+                product.rating?['rate'] != null
                     ? Row(
                         children: [
                           SizedBox(
                             child: Text(
-                              '${store.rating?['rate']}',
+                              '${product.rating?['rate']}',
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: const TextStyle(
@@ -89,7 +96,7 @@ class ProductCard extends StatelessWidget {
             ),
             const SizedBox(height: 5),
             Text(
-              store.category ?? '',
+              product.category ?? '',
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: const TextStyle(

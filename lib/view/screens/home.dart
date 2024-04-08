@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:zinc_flutter_assignment/provider/store_provider.dart';
-import 'package:zinc_flutter_assignment/view/screens/shared/product_card.dart';
+import 'package:zinc_flutter_assignment/util/text_constants.dart';
+import 'package:zinc_flutter_assignment/view/screens/shared/product_grid.dart';
 import 'package:zinc_flutter_assignment/view/screens/shared/shimmer.dart';
 
 class Home extends StatefulWidget {
@@ -21,7 +22,9 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[300]!,
-      appBar: AppBar(title: const Text('Zinc Store')),
+      appBar: AppBar(
+        title: Text(TextConstants.appName),
+      ),
       body: SafeArea(
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -32,26 +35,7 @@ class _HomeState extends State<Home> {
                 return const ShimmerEffect();
               } else if (provider.products != null &&
                   provider.products!.isNotEmpty) {
-                return Column(
-                  children: [
-                    Expanded(
-                      child: GridView.builder(
-                        padding: const EdgeInsets.all(0),
-                        itemCount: provider.products!.length,
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          childAspectRatio: 0.95,
-                          crossAxisSpacing: 10,
-                          mainAxisSpacing: 20,
-                        ),
-                        itemBuilder: (context, i) {
-                          return ProductCard(store: provider.products![i]);
-                        },
-                      ),
-                    ),
-                  ],
-                );
+                return ProductGrid(products: provider.products!);
               } else if (provider.products == null &&
                   provider.products!.isEmpty) {
                 return const Center(child: Text('No data found'));

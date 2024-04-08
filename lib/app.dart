@@ -20,6 +20,7 @@ class _MyAppState extends State<MyApp> {
       ],
       child: Builder(builder: (context) {
         return const MaterialApp(
+          debugShowCheckedModeBanner: false,
           home: Home(),
         );
       }),

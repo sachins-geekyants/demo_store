@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:zinc_flutter_assignment/environment/store_environment.dart';
+import 'package:get_it/get_it.dart';
 import 'package:zinc_flutter_assignment/model/product.dart';
 import 'package:zinc_flutter_assignment/repository/store_repository_impl.dart';
 
 class StoreProvider extends ChangeNotifier {
   List<Product>? products;
+  String? errorMessage;
 
   getProdcts() async {
     /// data already cached
@@ -12,11 +13,13 @@ class StoreProvider extends ChangeNotifier {
       notifyListeners();
       return;
     }
-    // TODO: use get Itinstead
-    StoreRepositoryImpl storeRepositoryImpl =
-        StoreRepositoryImpl(apiEndpoint: StoreEnv.api);
 
-    products = await storeRepositoryImpl.getProducts();
+    try {
+      products = await GetIt.I<StoreRepositoryImpl>().getProducts();
+    } catch (e) {
+      products = null;
+      errorMessage = e.toString();
+    }
     notifyListeners();
   }
 }
