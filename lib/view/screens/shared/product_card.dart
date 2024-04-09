@@ -34,7 +34,7 @@ class ProductCard extends StatelessWidget {
                         product.image!,
                         width: 65,
                         errorBuilder: (context, url, error) =>
-                            Image.asset('assets/images/organic_category.png'),
+                            const Icon(Icons.image),
                       )
                     : const SizedBox.shrink()),
             const SizedBox(height: 1),

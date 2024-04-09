@@ -35,6 +35,8 @@ class _ProductDetailsState extends State<ProductDetails> {
                     ? Image.network(
                         widget.product.image!,
                         height: 300,
+                        errorBuilder: (context, url, error) =>
+                            const Icon(Icons.image),
                       )
                     : const SizedBox.shrink(),
                 const SizedBox(height: 50),
